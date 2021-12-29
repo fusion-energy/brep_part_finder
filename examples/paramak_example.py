@@ -12,7 +12,7 @@ part_id = bpf.find_part(
     shape_object = my_reactor_brep_shapes,
     volume=220932912,
     volume_atol=1e-6,
-    faces=10
+    faces=1
 )
 
 print(part_id)
