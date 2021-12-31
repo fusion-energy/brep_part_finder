@@ -7,7 +7,7 @@ def import_brep(filename):
     my_brep = Shape.importBrep(filename)
     return my_brep
 
-def find_part(
+def get_part_id(
     shape_object,
     volume=None,
     volume_atol=1e-8,
@@ -54,4 +54,30 @@ def find_part(
 
     if len(lists_of_matching_parts) == 0:
         print('No single part found that matches all criteria')
+    # if len(lists_of_matching_parts) == 1:
+    #     return lists_of_matching_parts[0]
     return lists_of_matching_parts
+
+def get_part_ids(
+    shape_object,
+    shape_properties: dict
+):
+    key_and_part_id = []
+    for key, value in shape_properties.items():
+        mating_part_id = get_part_id(shape_object=shape_object, **value)
+        print(key, mating_part_id)
+        key_and_part_id.append((key, mating_part_id))
+    return key_and_part_id
+
+def get_dict_of_part_ids(
+    shape_object,
+    shape_properties: dict
+):
+    key_and_part_id = {}
+    for key, value in shape_properties.items():
+        mating_part_id = get_part_id(shape_object=shape_object, **value)
+        if len(mating_part_id) > 1:
+            raise ValueError(f'multiple matching volumes were found for {key}')
+        print(key, mating_part_id)
+        key_and_part_id[mating_part_id[0]] = key
+    return key_and_part_id
