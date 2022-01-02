@@ -11,10 +11,10 @@ def get_part_id(
     shape_object,
     volume=None,
     volume_atol=1e-8,
+    center=None,
+    bounding_box=None,
     faces=None
 ):
-
-    matching_criteria = 0
 
     volume_ids_matching = {}
     for counter, part in enumerate(shape_object.Solids(), 1):
@@ -22,10 +22,21 @@ def get_part_id(
         print(counter)
         print(' volume', part.Volume())
         print(' faces', len(part.Faces()))
+    
+    if center:
+        volume_ids_matching_centers = []
+        for counter, part in enumerate(shape_object.Solids(), 1):
+            if np.isclose(part.Center().z, center[2]):
+                print('found matching centers')
+                volume_ids_matching_centers.append(counter)
+        if len(volume_ids_matching_centers) == 0:
+            print('No parts matching the specified center +/- tolerances were found') 
+        else:
+            volume_ids_matching['center'] = volume_ids_matching_centers
+
 
     if volume:
         volume_ids_matching_volume = []
-        matching_criteria=matching_criteria+1
         for counter, part in enumerate(shape_object.Solids(), 1):
             if np.isclose(part.Volume(), volume, atol=volume_atol):
                 print('found matching volumes')
@@ -37,7 +48,6 @@ def get_part_id(
 
     if faces:
         volume_ids_matching_faces = []
-        matching_criteria=matching_criteria+1
         for counter, part in enumerate(shape_object.Solids(), 1):
             if faces == len(part.Faces()):
                 print('found matching faces')
