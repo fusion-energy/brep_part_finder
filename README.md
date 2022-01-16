@@ -1,4 +1,14 @@
+Brep-part-finder is able to search for parts within a Brep file that match user
+specified properties such as volume, center of mass and bounding box. The
+matching ID number of the part will be returned if found.
 
+This is useful because the order or parts changes when exporting to Brep files.
+This part finder package helps keep track of meta data within a workflow.
+The [neutronics workflow](https://github.com/fusion-energy/neutronics-workshop)
+makes use of this package to help correctly identify materials when making
+[DAGMC](https://github.com/svalinn/DAGMC/) h5m files from 
+[Paramak](https://github.com/fusion-energy/paramak) geometries for neutronics
+simulations.
 
 # Installation
 
