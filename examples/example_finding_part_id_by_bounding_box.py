@@ -11,12 +11,12 @@ print(json.dumps(my_reactor.part_properties, indent=4))
 my_reactor.export_brep('my_reactor.brep')
 
 # brep file is imported
-my_reactor_brep_shapes = bpf.import_brep('my_reactor.brep')
+my_brep_part_properties = bpf.get_brep_part_properties('my_reactor.brep')
 
 # from the printed json dictionary we know that there is are two parts with a
 # volume 95467959.26023674 which is the blanket_rear_wall component
 part_id = bpf.get_part_id(
-    shape_object = my_reactor_brep_shapes,
+    brep_part_properties = my_brep_part_properties,
     bounding_box = [
             [
                 -250.0000001,
