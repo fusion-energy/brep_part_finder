@@ -17,8 +17,19 @@ my_reactor_brep_shapes = bpf.import_brep('my_reactor.brep')
 # volume 95467959.26023674 which is the blanket_rear_wall component
 part_id = bpf.get_part_id(
     shape_object = my_reactor_brep_shapes,
-    volume=95467959.26023674,
-    volume_atol=1e-6,
+    bounding_box = [
+            [
+                -250.0000001,
+                -250.0000001,
+                -460.9997405464822
+            ],
+            [
+                250.0000001,
+                250.00000010000002,
+                -311.13245981234695
+            ]
+        ],
+    bounding_box_atol=1e-6,
 )
 
 # prints the part id found

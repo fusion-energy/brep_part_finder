@@ -120,21 +120,42 @@ def get_part_id(
     return lists_of_matching_parts
 
 
-def get_part_ids(shape_object, shape_properties: dict):
+def get_part_ids(
+    shape_object,
+    shape_properties: dict,
+    volume_atol: float = 1e-8,
+    center_atol: float = 1e-6,
+    bounding_box_atol: float = 1e-8,
+):
     key_and_part_id = []
     for key, value in shape_properties.items():
-        matching_part_id = get_part_id(shape_object=shape_object, **value)
-        # print(key, matching_part_id)
+        matching_part_id = get_part_id(
+            shape_object=shape_object,
+            volume_atol = volume_atol,
+            center_atol = center_atol,
+            bounding_box_atol = bounding_box_atol,
+            **value)
         key_and_part_id.append((key, matching_part_id))
     return key_and_part_id
 
 
-def get_dict_of_part_ids(shape_object, shape_properties: dict):
+def get_dict_of_part_ids(
+    shape_object,
+    shape_properties: dict,
+    volume_atol: float = 1e-8,
+    center_atol: float = 1e-6,
+    bounding_box_atol: float = 1e-8,
+):
     key_and_part_id = {}
     for key, value in shape_properties.items():
-        matching_part_id = get_part_id(shape_object=shape_object, **value)
+        matching_part_id = get_part_id(
+            shape_object=shape_object,
+            volume_atol = volume_atol,
+            center_atol = center_atol,
+            bounding_box_atol = bounding_box_atol,
+            **value
+        )
         if len(matching_part_id) > 1:
             raise ValueError(f"multiple matching volumes were found for {key}")
-        # print(key, matching_part_id)
         key_and_part_id[matching_part_id[0]] = key
     return key_and_part_id

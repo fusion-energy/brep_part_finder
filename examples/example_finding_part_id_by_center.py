@@ -13,12 +13,15 @@ my_reactor.export_brep('my_reactor.brep')
 # brep file is imported
 my_reactor_brep_shapes = bpf.import_brep('my_reactor.brep')
 
-# request to find part ids that are mixed up in the Brep file
-# using the volume, center, bounding box that we know about when creating the
-# CAD geometry in the first place
-key_and_part_id = bpf.get_dict_of_part_ids(
+# from the printed json dictionary we know that there is are two parts with a
+# volume 95467959.26023674 which is the blanket_rear_wall component
+part_id = bpf.get_part_id(
     shape_object = my_reactor_brep_shapes,
-    shape_properties = my_reactor.part_properties
+    center = [0,0,0],
+    center_atol=1e-6,
 )
 
-print(key_and_part_id)
+# prints the part id found
+# in this case there are several parts found with this center of mass
+print(f' there is {len(part_id)} with a matching volume')
+print(f' the part id with a matching volume is {part_id}')
