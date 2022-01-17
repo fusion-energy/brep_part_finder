@@ -1,16 +1,11 @@
-import json
-import os
 import unittest
 import brep_part_finder as bpf
-import paramak
 
 
 class TestShape(unittest.TestCase):
     def setUp(self):
 
-        my_reactor = paramak.BallReactor()
-        my_reactor.export_brep('my_reactor.brep')
-        self.brep_part_properties = bpf.get_brep_part_properties('my_reactor.brep')
+        self.brep_part_properties = bpf.get_brep_part_properties('ball_reactor.brep')
 
     def test_number_of_parts(self):
         """Checks that all 8 of the solids in the Brep result in an entry"""

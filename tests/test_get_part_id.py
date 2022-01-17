@@ -1,16 +1,12 @@
 
 import unittest
 import brep_part_finder as bpf
-import paramak
 
 
 class TestShape(unittest.TestCase):
     def setUp(self):
 
-        
-        my_reactor = paramak.BallReactor()
-        my_reactor.export_brep('my_reactor.brep')
-        self.my_reactor_brep_shapes = bpf.get_brep_part_properties('my_reactor.brep')
+        self.brep_part_properties = bpf.get_brep_part_properties('ball_reactor.brep')
 
     def test_finding_part_id_with_volume(self):
         """"""
