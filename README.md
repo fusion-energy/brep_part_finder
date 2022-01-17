@@ -1,4 +1,4 @@
-Brep-part-finder is able to search for parts within a Brep file that match user
+Brep-part-finder is able to search within a Brep file for parts that match user
 specified properties such as volume, center of mass and bounding box. The
 matching ID number of the part will be returned if found.
 
@@ -12,11 +12,13 @@ simulations.
 
 # Installation
 
+The installation instructions below create a new conda enviroment, install CadQuery and install this package.
+The master branch of CadQuery is currently required as latest features are required.
+When CadQuery version 2.2 is released then install can target a stable version.
+
 ```bash
 conda create --name cadquery
 conda activate cadquery
-# Installing CadQuery from the master branch as latest features are required.
-# Once CadQuery version 2.2 is released then install can target a stable version
 conda install -c cadquery -c conda-forge cadquery=master
 pip install brep_part_finder
 ```
