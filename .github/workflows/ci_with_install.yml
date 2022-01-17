@@ -28,6 +28,7 @@ jobs:
       - name: install package
         run: |
           conda install -c cadquery -c conda-forge cadquery=master
+          apt-get install -y libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev  freeglut3-dev libosmesa6 libosmesa6-dev  libgles2-mesa-dev
           python setup.py install
 
       - name: Copy brep file from examples
