@@ -52,7 +52,7 @@ jobs:
 
       - name: Run paramak examples
         run: |
-
+          cd examples
           python paramak_example.py
 
 
