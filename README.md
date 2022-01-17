@@ -15,7 +15,8 @@ simulations.
 ```bash
 conda create --name cadquery
 conda activate cadquery
-# requires cadquery version 2.2 or above
+# Installing CadQuery from the master branch as latest features are required.
+# Once CadQuery version 2.2 is released then install can target a stable version
 conda install -c cadquery -c conda-forge cadquery=master
 pip install brep_part_finder
 ```
