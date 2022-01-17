@@ -1,0 +1,59 @@
+# This CI will lauch a Docker image that contains all the dependencies required
+# within that image the pytest test suite is run 
+
+name: CI with install
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '.gitignore'
+      - '*.md'
+      - 'CITATION.cff'
+      - 'LICENSE.txt'
+      - 'readthedocs.yml'
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    container:
+      image: continuumio/miniconda3:4.9.2 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: install package
+        run: |
+          apt-get --allow-releaseinfo-change update
+          apt-get install -y libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev  freeglut3-dev libosmesa6 libosmesa6-dev  libgles2-mesa-dev
+          conda install -c cadquery -c conda-forge cadquery=master
+          python setup.py install
+
+      - name: Copy brep file from examples
+        run: cp examples/ball_reactor.brep .
+
+      - name: Run tests
+        run: |
+          pip install pytest
+          pytest tests
+
+      - name: Run examples
+        run: |
+          cd examples
+          python example_finding_part_id_by_bounding_box.py
+          python example_finding_part_id_by_center.py
+          python example_finding_part_id_by_volume.py
+
+      - name: install paramak
+        run: pip install paramak
+
+      # commented out till Reactor.part_properties is not available
+      # - name: Run paramak examples
+      #   run: |
+      #     cd examples
+      #     python paramak_example.py
+
+
