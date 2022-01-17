@@ -1,3 +1,5 @@
+[![CI with install](https://github.com/fusion-energy/brep_part_finder/actions/workflows/ci_with_install.yml/badge.svg)](https://github.com/fusion-energy/brep_part_finder/actions/workflows/ci_with_install.yml)
+
 Brep-part-finder is able to search within a Brep file for parts that match user
 specified properties such as volume, center of mass and bounding box. The
 matching ID number of the part will be returned if found.

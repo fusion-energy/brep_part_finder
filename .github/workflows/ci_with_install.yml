@@ -50,9 +50,10 @@ jobs:
       - name: install paramak
         run: pip install paramak
 
-      - name: Run paramak examples
-        run: |
-          cd examples
-          python paramak_example.py
+      # commented out till Reactor.part_properties is not available
+      # - name: Run paramak examples
+      #   run: |
+      #     cd examples
+      #     python paramak_example.py
 
 
