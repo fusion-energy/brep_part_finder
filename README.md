@@ -17,8 +17,8 @@ The master branch of CadQuery is currently required as latest features are requi
 When CadQuery version 2.2 is released then install can target a stable version.
 
 ```bash
-conda create --name cadquery
-conda activate cadquery
+conda create --name cq_master
+conda activate cq_master
 conda install -c cadquery -c conda-forge cadquery=master
 pip install brep_part_finder
 ```
