@@ -105,6 +105,8 @@ print(part_id)
 >> [3]
 ```
 
+For more usage examples see the [examples](https://github.com/fusion-energy/brep_part_finder/tree/main/examples) folder in this repository
+
 # Combining with Paramak
 
 When reactor models made with Paramak are exported to Brep files it is likely that the order of parts in the Brep file does not match the order of parts within the Paramak object. Therefore this program is useful when identifying parts in the Brep file. See the [paramak_example](https://github.com/fusion-energy/brep_part_finder/blob/main/examples/paramak_example.py) file in the examples folder of this repository.
