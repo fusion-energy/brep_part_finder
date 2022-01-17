@@ -31,10 +31,11 @@ jobs:
           python setup.py install
 
       - name: Copy brep file from examples
-        run: cp examples/ball_reactor.brep tests/ball_reactor.brep
+        run: cp examples/ball_reactor.brep .
 
       - name: Run tests
         run: |
+          pip install pytest
           pytest tests
 
       - name: Run examples
