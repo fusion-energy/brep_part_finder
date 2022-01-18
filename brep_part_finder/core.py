@@ -42,44 +42,45 @@ def get_part_id(
     volume: float = None,
     center: Tuple[float, float, float] = None,
     bounding_box: Tuple[Tuple[float, float, float], Tuple[float, float, float]] = None,
-    volume_atol: float = 1e-8,
+    volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
-    bounding_box_atol: float = 1e-8,
+    bounding_box_atol: float = 1e-6,
 ):
     """ """
 
-    volume_ids_matching = {}
+    part_ids_matching = {}
 
     if center:
-        volume_ids_matching_centers = []
+        part_ids_matching_centers = []
         for key, value in brep_part_properties.items():
             if (
                 np.isclose(value["Center.x"], center[0], atol=center_atol)
                 and np.isclose(value["Center.y"], center[1], atol=center_atol)
                 and np.isclose(value["Center.z"], center[2], atol=center_atol)
             ):
-                volume_ids_matching_centers.append(key)
-        if len(volume_ids_matching_centers) == 0:
+                print('center_atol',center_atol)
+                part_ids_matching_centers.append(key)
+        if len(part_ids_matching_centers) == 0:
             warnings.warn(
                 "No parts matching the specified center +/- tolerances were found"
             )
         else:
-            volume_ids_matching["center"] = volume_ids_matching_centers
+            part_ids_matching["center"] = part_ids_matching_centers
 
     if volume:
-        volume_ids_matching_volume = []
+        part_ids_matching_volume = []
         for key, value in brep_part_properties.items():
             if np.isclose(value["Volume"], volume, atol=volume_atol):
-                volume_ids_matching_volume.append(key)
-        if len(volume_ids_matching_volume) == 0:
+                part_ids_matching_volume.append(key)
+        if len(part_ids_matching_volume) == 0:
             warnings.warn(
                 "No parts matching the specified volume +/- tolerances were found"
             )
         else:
-            volume_ids_matching["volume"] = volume_ids_matching_volume
+            part_ids_matching["volume"] = part_ids_matching_volume
 
     if bounding_box:
-        volume_ids_matching_bounding_box = []
+        part_ids_matching_bounding_box = []
         for key, value in brep_part_properties.items():
             part_bb = (
                 value["BoundingBox.xmin"],
@@ -108,16 +109,16 @@ def get_part_id(
                     part_bb[1][2], bounding_box[1][2], atol=bounding_box_atol
                 )
             ):
-                # print('match',bounding_box,part_bb)
-                volume_ids_matching_bounding_box.append(key)
-        if len(volume_ids_matching_bounding_box) == 0:
+                # print('match',key,bounding_box,part_bb)
+                part_ids_matching_bounding_box.append(key)
+        if len(part_ids_matching_bounding_box) == 0:
             warnings.warn("No parts matching the specified bounding boxes were found")
         else:
-            volume_ids_matching["bounding_box"] = volume_ids_matching_bounding_box
+            part_ids_matching["bounding_box"] = part_ids_matching_bounding_box
 
-    # print("volume numbers matching search criteria", volume_ids_matching)
+    # print("volume numbers matching search criteria", part_ids_matching)
 
-    lists_of_matching_parts_separate = list(volume_ids_matching.values())
+    lists_of_matching_parts_separate = list(part_ids_matching.values())
     lists_of_matching_parts = list(
         set.intersection(*map(set, lists_of_matching_parts_separate))
     )
@@ -131,9 +132,9 @@ def get_part_id(
 def get_part_ids(
     brep_part_properties,
     shape_properties: dict,
-    volume_atol: float = 1e-8,
+    volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
-    bounding_box_atol: float = 1e-8,
+    bounding_box_atol: float = 1e-6,
 ):
     key_and_part_id = []
     for key, value in shape_properties.items():
@@ -151,9 +152,9 @@ def get_part_ids(
 def get_dict_of_part_ids(
     brep_part_properties,
     shape_properties: dict,
-    volume_atol: float = 1e-8,
+    volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
-    bounding_box_atol: float = 1e-8,
+    bounding_box_atol: float = 1e-6,
 ):
     key_and_part_id = {}
     for key, value in shape_properties.items():
