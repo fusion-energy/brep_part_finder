@@ -58,7 +58,6 @@ def get_part_id(
                 and np.isclose(value["Center.y"], center[1], atol=center_atol)
                 and np.isclose(value["Center.z"], center[2], atol=center_atol)
             ):
-                print('center_atol',center_atol)
                 part_ids_matching_centers.append(key)
         if len(part_ids_matching_centers) == 0:
             warnings.warn(
