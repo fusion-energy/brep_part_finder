@@ -30,9 +30,9 @@ pip install brep_part_finder
 To view the properties of the parts in the Brep file the first stage is to import the package and make use of the ```get_brep_part_properties``` function.
 
 ```
-import brep_part_finder as bvf
+import brep_part_finder as bpf
 
-my_brep_part_properties = bvf.get_brep_part_properties('my_brep_file.brep')
+my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
 
 print(my_brep_part_properties)
 >>>{
@@ -61,10 +61,10 @@ From the above dictionary it is possible to identify parts from their central of
 
 A minimal example that finds the part id numbers with matching volumes
 ```python
-import brep_part_finder as bvf
+import brep_part_finder as bpf
 
-my_brep_part_properties = bvf.get_brep_part_properties('my_brep_file.brep')
-part_id = bvf.find_part_id(
+my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+part_id = bpf.find_part_id(
     brep_part_properties=my_brep_part_properties,
     volume=10,
 
@@ -78,10 +78,10 @@ The above example found 3 part ids with matching volumes.
 
 The follow example also specifies the center of mass which helps narrow down the part ids to just to matching parts.
 ```python
-import brep_part_finder as bvf
+import brep_part_finder as bpf
 
-my_brep_part_properties = bvf.get_brep_part_properties('my_brep_file.brep')
-part_id = bvf.find_part_id(
+my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+part_id = bpf.find_part_id(
     brep_part_properties=my_brep_part_properties,
     volume=10,
     center_of_mass=(0,0,0),
@@ -93,10 +93,10 @@ print(part_id)
 
 In the this example the bounding box of the part has also been specified and these three pieces of information are enough to find one part that matches all three criteria.
 ```python
-import brep_part_finder as bvf
+import brep_part_finder as bpf
 
-my_brep_part_properties = bvf.get_brep_part_properties('my_brep_file.brep')
-part_id = bvf.find_part_id(
+my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+part_id = bpf.find_part_id(
     brep_part_properties=my_brep_part_properties,
     volume=10,
     center_of_mass=(0,0,0),
