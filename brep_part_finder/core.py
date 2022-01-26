@@ -1,4 +1,5 @@
 import warnings
+from collections.abc import Iterable
 from typing import Tuple
 
 import numpy as np
@@ -171,7 +172,7 @@ def get_dict_of_part_ids(
                 raise ValueError(f"multiple matching volumes were found for {key}")
             # todo check that key is not already in use
             key_and_part_id[matching_part_id[0]] = key
-        else:
+        elif isinstance(value, Iterable):
             # assumed to be list
             for entry in value:
                 # check if value is a list of dictionaries or a dictionary
@@ -186,5 +187,7 @@ def get_dict_of_part_ids(
                     raise ValueError(f"multiple matching volumes were found for {key}")
                 # todo check that key is not already in use
                 key_and_part_id[matching_part_id[0]] = key
-
+        else:
+            msg = "dictionary values must be either a dictionary or a list of dictionaries"
+            raise ValueError(msg)
     return key_and_part_id
