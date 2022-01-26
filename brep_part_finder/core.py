@@ -157,14 +157,34 @@ def get_dict_of_part_ids(
 ):
     key_and_part_id = {}
     for key, value in shape_properties.items():
-        matching_part_id = get_part_id(
-            brep_part_properties=brep_part_properties,
-            volume_atol=volume_atol,
-            center_atol=center_atol,
-            bounding_box_atol=bounding_box_atol,
-            **value,
-        )
-        if len(matching_part_id) > 1:
-            raise ValueError(f"multiple matching volumes were found for {key}")
-        key_and_part_id[matching_part_id[0]] = key
+
+        if isinstance(value, dict):
+            # check if value is a list of dictionaries or a dictionary
+            matching_part_id = get_part_id(
+                brep_part_properties=brep_part_properties,
+                volume_atol=volume_atol,
+                center_atol=center_atol,
+                bounding_box_atol=bounding_box_atol,
+                **value,
+            )
+            if len(matching_part_id) > 1:
+                raise ValueError(f"multiple matching volumes were found for {key}")
+            # todo check that key is not already in use
+            key_and_part_id[matching_part_id[0]] = key
+        else:
+            # assumed to be list
+            for entry in value:
+                # check if value is a list of dictionaries or a dictionary
+                matching_part_id = get_part_id(
+                    brep_part_properties=brep_part_properties,
+                    volume_atol=volume_atol,
+                    center_atol=center_atol,
+                    bounding_box_atol=bounding_box_atol,
+                    **entry,
+                )
+                if len(matching_part_id) > 1:
+                    raise ValueError(f"multiple matching volumes were found for {key}")
+                # todo check that key is not already in use
+                key_and_part_id[matching_part_id[0]] = key
+
     return key_and_part_id
