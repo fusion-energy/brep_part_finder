@@ -1,7 +1,6 @@
-import json
+
 import os
 
-import brep_part_finder as bpf
 import paramak
 
 my_reactor = paramak.BallReactor()
