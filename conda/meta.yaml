@@ -17,8 +17,8 @@ requirements:
     - python {{ python }}
     - setuptools
   run:
-    - numpy
     - cadquery
+    - numpy
 
 test:
   imports:
