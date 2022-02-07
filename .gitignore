@@ -130,3 +130,5 @@ dmypy.json
 
 # local brep files required for tests
 *.brep
+
+_version.py
