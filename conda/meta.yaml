@@ -1,9 +1,9 @@
 {% set name = "brep_part_finder" %}
-{% set data = load_setup_py_data() %}
+{% set version = "0.2.0" %}
 
 package:
   name: "{{ name|lower }}"
-  version: {{ data.get('version') }}
+  version: {{ version }}
 
 source:
   path: ..
@@ -25,7 +25,6 @@ test:
     - brep_part_finder
   requires:
     - pytest
-    - pytest-runner
   # source_files:
   #   - tests/
   #   - examples/
@@ -37,7 +36,7 @@ about:
   home: "https://github.com/fusion-energy/brep_part_finder"
   license: MIT
   license_family: MIT
-  license_file: LICENSE
+  license_file: LICENSE.txt
   doc_url: https://github.com/fusion-energy/brep_part_finder
   dev_url: https://github.com/fusion-energy/brep_part_finder
   summary: brep_part_finder - A Python package to identify the part ID number in Brep format CAD files
