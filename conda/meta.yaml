@@ -1,9 +1,9 @@
 {% set name = "brep_part_finder" %}
-{% set version = "0.2.0" %}
 
 package:
   name: "{{ name|lower }}"
-  version: {{ version }}
+  # conda package version tag is obtained from the git release version tag
+  version: {{ GIT_DESCRIBE_TAG }}
 
 source:
   path: ..
