@@ -39,7 +39,7 @@ def get_brep_part_properties(filename: str):
 
 
 def get_part_id(
-    brep_part_properties,
+    brep_part_properties: dict,
     volume: float = None,
     center: Tuple[float, float, float] = None,
     bounding_box: Tuple[Tuple[float, float, float], Tuple[float, float, float]] = None,
@@ -47,7 +47,22 @@ def get_part_id(
     center_atol: float = 1e-6,
     bounding_box_atol: float = 1e-6,
 ):
-    """ """
+    """Finds the key within a dictionary of parts that matches the user
+    specified arguments for volume, center, bounding_box within the provided
+    tolerances
+
+    Arguments:
+        brep_part_properties: a dictionary with the part id number as the key
+            and a dictionary of values for the part properties. For example
+            {1: {'Center.x':0, 'Center.y':0, 'Center.z':0, 'Volume':10, ....}}
+        volume: the volume of the part to find.
+        center: a tuple of x,y,z coordinates
+        bounding_box: a tuple of two coordinates where the coordinates are the
+            lower left and upper right corners of the bounding box. 
+        volume_atol: absolute tolerance acceptable on the volume comparision
+        center_atol: absolute tolerance acceptable on the center comparision
+        bounding_box_atol: absolute tolerance acceptable on the bounding box comparision
+    """
 
     part_ids_matching = {}
 
