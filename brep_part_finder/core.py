@@ -58,7 +58,7 @@ def get_part_id(
         volume: the volume of the part to find.
         center: a tuple of x,y,z coordinates
         bounding_box: a tuple of two coordinates where the coordinates are the
-            lower left and upper right corners of the bounding box. 
+            lower left and upper right corners of the bounding box.
         volume_atol: absolute tolerance acceptable on the volume comparision
         center_atol: absolute tolerance acceptable on the center comparision
         bounding_box_atol: absolute tolerance acceptable on the bounding box comparision
