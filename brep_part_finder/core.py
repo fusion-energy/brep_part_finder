@@ -134,6 +134,17 @@ def get_part_id(
     # print("volume numbers matching search criteria", part_ids_matching)
 
     lists_of_matching_parts_separate = list(part_ids_matching.values())
+
+    if lists_of_matching_parts_separate == []:
+        warnings.warn("No single part found that matches all criteria")
+        print('search criteria are:')
+        print(' volume',volume)
+        print(' center',center)
+        print(' bounding_box',bounding_box)
+        print(' volume_atol',volume_atol)
+        print(' center_atol',center_atol)
+        print(' bounding_box_atol',bounding_box_atol)
+
     lists_of_matching_parts = list(
         set.intersection(*map(set, lists_of_matching_parts_separate))
     )
