@@ -12,15 +12,25 @@ makes use of this package to help correctly identify materials when making
 [Paramak](https://github.com/fusion-energy/paramak) geometries for neutronics
 simulations.
 
-# Installation
+# Installation (Conda)
+
+The installation instructions below create a new conda enviroment and install 
+
+```bash
+conda create --name bpf_env
+conda activate bpf_env
+conda install -c cadquery -c fusion-energy -c conda-forge brep_part_finder
+```
+
+# Installation (Conda + Pip)
 
 The installation instructions below create a new conda enviroment, install CadQuery and install this package.
 The master branch of CadQuery is currently required as latest features are required.
 When CadQuery version 2.2 is released then install can target a stable version.
 
 ```bash
-conda create --name cq_master
-conda activate cq_master
+conda create --name bpf_env
+conda activate bpf_env
 conda install -c cadquery -c conda-forge cadquery=master
 pip install brep_part_finder
 ```

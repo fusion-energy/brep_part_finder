@@ -15,4 +15,4 @@ my_reactor.export_dagmc_h5m(
 )
 
 # converting for viewing geometry in Paraview / Visit
-os.system("mbconvert dagmc.h5m dagm.vtk")
+# os.system("mbconvert dagmc.h5m dagm.vtk")
