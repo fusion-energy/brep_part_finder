@@ -47,12 +47,13 @@ jobs:
           python example_finding_part_id_by_center.py
           python example_finding_part_id_by_volume.py
 
-      - name: install paramak
-        run: pip install paramak
+      # TODO these examples require gmsh and moab to be installed
+      # - name: install paramak
+      #   run: pip install paramak
 
-      - name: Run paramak examples
-        run: |
-          cd examples
-          python paramak_example.py
+      # - name: Run paramak examples
+      #   run: |
+      #     cd examples
+      #     python paramak_example.py
 
 
