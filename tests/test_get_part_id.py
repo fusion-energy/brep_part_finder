@@ -5,7 +5,9 @@ import brep_part_finder as bpf
 class TestShape(unittest.TestCase):
     def setUp(self):
 
-        self.brep_part_properties = bpf.get_brep_part_properties("ball_reactor.brep")
+        self.brep_part_properties = bpf.get_brep_part_properties(
+            "examples/ball_reactor.brep"
+        )
 
     def test_finding_part_id_with_volume(self):
         """"""

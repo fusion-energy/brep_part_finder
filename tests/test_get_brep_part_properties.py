@@ -5,7 +5,9 @@ import brep_part_finder as bpf
 class TestShape(unittest.TestCase):
     def setUp(self):
 
-        self.brep_part_properties = bpf.get_brep_part_properties("ball_reactor.brep")
+        self.brep_part_properties = bpf.get_brep_part_properties(
+            "examples/ball_reactor.brep"
+        )
 
     def test_number_of_parts(self):
         """Checks that all 8 of the solids in the Brep result in an entry"""
