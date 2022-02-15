@@ -32,9 +32,6 @@ jobs:
           conda install -c cadquery -c conda-forge cadquery=master
           pip install .
 
-      - name: Copy brep file from examples
-        run: cp examples/ball_reactor.brep .
-
       - name: Run tests
         run: |
           pip install .[tests]
@@ -47,9 +44,9 @@ jobs:
           python example_finding_part_id_by_center.py
           python example_finding_part_id_by_volume.py
 
-      # TODO these examples require gmsh and moab to be installed
+      # todo enable these tests once paramak dev build is working or v0.7 paramak and cq 2.2 is released
       # - name: install paramak
-      #   run: pip install paramak
+      #   run: conda install -c fusion-energy -c cadquery -c conda-forge paramak_dev
 
       # - name: Run paramak examples
       #   run: |
