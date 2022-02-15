@@ -23,4 +23,4 @@ jobs:
             conda build conda -c cadquery -c conda-forge --config-file conda/conda_build_config.yaml
             conda convert /usr/share/miniconda/conda-bld/linux-64/*.tar.bz2 --platform osx-64
             conda convert /usr/share/miniconda/conda-bld/linux-64/*.tar.bz2 --platform win-64
-            anaconda upload -f /usr/share/miniconda/conda-bld/l*/*.tar.bz2
+            anaconda upload -f /usr/share/miniconda/conda-bld/*/*.tar.bz2
