@@ -8,14 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # This container includes libgl1-mesa-glx, anaconda-client and conda-build
+    # https://github.com/shimwell/miniconda3_docker_image/blob/main/Dockerfile
     container: ghcr.io/shimwell/miniconda
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install CQ dependencies
-        run: |
-            apt install -y libgl1-mesa-glx
       - name: Set up conda
         run: |
             conda config --set anaconda_upload no
