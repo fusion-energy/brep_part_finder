@@ -7,7 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: ghcr.io/shimwell/miniconda
+    runs-on: ubuntu-latest
+    container: ghcr.io/shimwell/miniconda
 
     steps:
       - uses: actions/checkout@v2
