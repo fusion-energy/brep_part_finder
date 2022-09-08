@@ -1,24 +1,22 @@
 import warnings
 from collections.abc import Iterable
-from typing import Tuple
-
+from typing import Tuple, Union
+from os import PathLike
 import numpy as np
 from cadquery import *
 from cadquery.occ_impl.shapes import Shape
 
 
-def get_brep_part_properties(filename: str):
-    """Imports a Brep CAD file and returns the contents as a CadQuery Shape
-    object
+def get_brep_part_properties_from_shape(shapes: Shape):
+    """Accepts a cadquery.occ_impl.shapes object and returns the unique
+    identify details of each Solid
 
     Args:
         filename: the filename of the brep file
     """
-
-    brep_shapes = Shape.importBrep(filename)
-
+ 
     my_brep_part_details = {}
-    for counter, part in enumerate(brep_shapes.Solids(), 1):
+    for counter, part in enumerate(shapes.Solids(), 1):
         part_details = {}
         part_details["Center.x"] = part.Center().x
         part_details["Center.y"] = part.Center().y
@@ -34,6 +32,20 @@ def get_brep_part_properties(filename: str):
         part_details["BoundingBox.zmax"] = part.BoundingBox().zmax
 
         my_brep_part_details[counter] = part_details
+
+    return my_brep_part_details
+
+
+def get_brep_part_properties(filename: Union[str, PathLike]):
+    """Imports a Brep CAD file and returns the unique identify details of each Solid
+
+    Args:
+        filename: the filename of the brep file
+    """
+
+    shapes = Shape.importBrep(filename)
+
+    my_brep_part_details = get_brep_part_properties_from_shape(shapes)
 
     return my_brep_part_details
 
