@@ -2,7 +2,6 @@
 
 package:
   name: "{{ name|lower }}"
-  # conda package version tag is obtained from the git release version tag
   version: {{ GIT_DESCRIBE_TAG }}
 
 source:
@@ -15,7 +14,8 @@ build:
 requirements:
   build:
     - python {{ python }}
-    - setuptools
+    - setuptools>=46.4.0
+    - setuptools_scm>=6.3.1
   run:
     - python {{ python }}
     - cadquery {{ cadquery }}
@@ -30,7 +30,7 @@ test:
     - tests/
     - examples/
   commands:
-    - pytest tests
+    - pytest -v tests
 
 
 about:
