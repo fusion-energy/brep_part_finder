@@ -14,7 +14,7 @@ def get_brep_part_properties_from_shape(shapes: Shape):
     Args:
         filename: the filename of the brep file
     """
- 
+
     my_brep_part_details = {}
     for counter, part in enumerate(shapes.Solids(), 1):
         part_details = {}
