@@ -35,7 +35,7 @@ jobs:
       - name: Run tests
         run: |
           pip install .[tests]
-          pytest tests
+          pytest tests -v
 
       - name: Run examples
         run: |
