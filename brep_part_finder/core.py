@@ -169,13 +169,15 @@ def get_part_id(
 
 def get_part_ids(
     brep_part_properties,
-    shape_properties: dict,
+    shape_properties: list,
     volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
     bounding_box_atol: float = 1e-6,
 ):
     key_and_part_id = []
-    for key, value in shape_properties.items():
+    for entry in shape_properties:
+        key = entry[0]
+        value = entry[1]
         matching_part_id = get_part_id(
             brep_part_properties=brep_part_properties,
             volume_atol=volume_atol,
@@ -189,13 +191,16 @@ def get_part_ids(
 
 def get_dict_of_part_ids(
     brep_part_properties,
-    shape_properties: dict,
+    shape_properties: list,
     volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
     bounding_box_atol: float = 1e-6,
 ):
     key_and_part_id = {}
-    for key, value in shape_properties.items():
+
+    for entry in shape_properties:
+        key = entry[0]
+        value = entry[1]
 
         if isinstance(value, dict):
             # check if value is a list of dictionaries or a dictionary
