@@ -5,6 +5,7 @@ from os import PathLike
 import numpy as np
 from cadquery import *
 from cadquery.occ_impl.shapes import Shape
+import cadquery as cq
 
 
 def get_brep_part_properties_from_shape(shapes: Shape):
@@ -15,8 +16,13 @@ def get_brep_part_properties_from_shape(shapes: Shape):
         filename: the filename of the brep file
     """
 
-    my_brep_part_details = {}
-    for counter, part in enumerate(shapes.Solids(), 1):
+    if isinstance(shapes, cq.occ_impl.shapes.Compound):
+        iterable_solids = shapes.Solids()
+    else:
+        iterable_solids = shapes.val().Solids()
+
+    all_part_details = {}
+    for counter, part in enumerate(iterable_solids, 1):
         part_details = {}
         part_details["Center.x"] = part.Center().x
         part_details["Center.y"] = part.Center().y
@@ -31,9 +37,9 @@ def get_brep_part_properties_from_shape(shapes: Shape):
         part_details["BoundingBox.ymax"] = part.BoundingBox().ymax
         part_details["BoundingBox.zmax"] = part.BoundingBox().zmax
 
-        my_brep_part_details[counter] = part_details
+        all_part_details[counter] = part_details
 
-    return my_brep_part_details
+    return all_part_details
 
 
 def get_brep_part_properties(filename: Union[str, PathLike]):
