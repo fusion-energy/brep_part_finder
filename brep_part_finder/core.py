@@ -212,7 +212,7 @@ def get_matching_part_ids(
 
     brep_and_shape_part_id = []
 
-    for key, value in shape_properties:
+    for shape_id, value in shape_properties.items():
 
         if isinstance(value, dict):
             # check if value is a list of dictionaries or a dictionary
@@ -224,11 +224,14 @@ def get_matching_part_ids(
                 **value,
             )
             if len(matching_part_id) > 1:
-                raise ValueError(f"multiple matching volumes were found for {key}")
+                raise ValueError(f"multiple matching volumes were found for {shape_id}")
             # todo check that key is not already in use
-            brep_and_shape_part_id.append((key, matching_part_id[0]))
+            brep_and_shape_part_id.append((matching_part_id[0], shape_id))
 
         else:
             msg = "shape_properties must be a dictionary of dictionaries"
             raise ValueError(msg)
+
+    brep_and_shape_part_id = sorted(brep_and_shape_part_id, key=lambda x: x[0])
+
     return brep_and_shape_part_id
