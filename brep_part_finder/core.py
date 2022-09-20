@@ -118,9 +118,42 @@ def get_matching_part_id(
 
     part_ids_matching = {}
 
-    properties = [center_x, center_y, center_z, volume, bounding_box_xmin, bounding_box_ymin, bounding_box_zmin, bounding_box_xmax, bounding_box_ymax, bounding_box_zmax]
-    properties_names = ["center_x", "center_y", "center_z", "volume", "bounding_box_xmin", "bounding_box_ymin", "bounding_box_zmin", "bounding_box_xmax", "bounding_box_ymax", "bounding_box_zmax"]
-    tolerances = [center_atol, center_atol, center_atol, volume_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol]
+    properties = [
+        center_x,
+        center_y,
+        center_z,
+        volume,
+        bounding_box_xmin,
+        bounding_box_ymin,
+        bounding_box_zmin,
+        bounding_box_xmax,
+        bounding_box_ymax,
+        bounding_box_zmax,
+    ]
+    properties_names = [
+        "center_x",
+        "center_y",
+        "center_z",
+        "volume",
+        "bounding_box_xmin",
+        "bounding_box_ymin",
+        "bounding_box_zmin",
+        "bounding_box_xmax",
+        "bounding_box_ymax",
+        "bounding_box_zmax",
+    ]
+    tolerances = [
+        center_atol,
+        center_atol,
+        center_atol,
+        volume_atol,
+        bounding_box_atol,
+        bounding_box_atol,
+        bounding_box_atol,
+        bounding_box_atol,
+        bounding_box_atol,
+        bounding_box_atol,
+    ]
 
     for property, names, tolerance in zip(properties, properties_names, tolerances):
         if property is not None:
@@ -150,11 +183,11 @@ def get_matching_part_id(
         print(" bounding_box_xmax", bounding_box_xmax)
         print(" bounding_box_ymax", bounding_box_ymax)
         print(" bounding_box_zmax", bounding_box_zmax)
-        print(' with tolerances')
+        print(" with tolerances")
         print("  volume_atol", volume_atol)
         print("  center_atol", center_atol)
         print("  bounding_box_atol", bounding_box_atol)
-        raise ValueError('No matching part found')
+        raise ValueError("No matching part found")
 
     lists_of_matching_parts = list(
         set.intersection(*map(set, lists_of_matching_parts_separate))
