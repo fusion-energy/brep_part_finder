@@ -14,7 +14,7 @@ class TestShape(unittest.TestCase):
     def test_finding_part_id_with_volume(self):
         """"""
 
-        part_id = bpf.get_part_id(
+        part_id = bpf.get_matching_part_id(
             brep_part_properties=self.brep_part_properties,
             volume=95467959.26023674,
             volume_atol=1e-6,
@@ -25,7 +25,7 @@ class TestShape(unittest.TestCase):
     def test_finding_part_id_with_center(self):
         """"""
 
-        part_id = bpf.get_part_id(
+        part_id = bpf.get_matching_part_id(
             brep_part_properties=self.brep_part_properties,
             center_x=-0.006133773543690803,
             center_y=7.867805031206607e-10,
@@ -38,7 +38,7 @@ class TestShape(unittest.TestCase):
     def test_finding_part_id_with_bounding_box(self):
         """"""
 
-        part_id = bpf.get_part_id(
+        part_id = bpf.get_matching_part_id(
             brep_part_properties=self.brep_part_properties,
             bounding_box_xmin=-570.5554844464615,
             bounding_box_ymin=-570.5554844464615,

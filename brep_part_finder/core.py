@@ -83,7 +83,7 @@ def get_part_properties_from_file(filename: Union[str, PathLike]):
     return my_brep_part_details
 
 
-def get_part_id(
+def get_matching_part_id(
     brep_part_properties: dict,
     center_x: float = None,
     center_y: float = None,
@@ -121,7 +121,7 @@ def get_part_id(
     properties = [center_x, center_y, center_z, volume, bounding_box_xmin, bounding_box_ymin, bounding_box_zmin, bounding_box_xmax, bounding_box_ymax, bounding_box_zmax]
     properties_names = ["center_x", "center_y", "center_z", "volume", "bounding_box_xmin", "bounding_box_ymin", "bounding_box_zmin", "bounding_box_xmax", "bounding_box_ymax", "bounding_box_zmax"]
     tolerances = [center_atol, center_atol, center_atol, volume_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol, bounding_box_atol]
-    
+
     for property, names, tolerance in zip(properties, properties_names, tolerances):
         if property is not None:
             part_ids_matching_property = []
@@ -166,43 +166,24 @@ def get_part_id(
     return lists_of_matching_parts
 
 
-def get_part_ids(
-    brep_part_properties,
-    shape_properties: list,
-    volume_atol: float = 1e-6,
-    center_atol: float = 1e-6,
-    bounding_box_atol: float = 1e-6,
-):
-    key_and_part_id = []
-    for entry in shape_properties:
-        key = entry[0]
-        value = entry[1]
-        matching_part_id = get_part_id(
-            brep_part_properties=brep_part_properties,
-            volume_atol=volume_atol,
-            center_atol=center_atol,
-            bounding_box_atol=bounding_box_atol,
-            **value,
-        )
-        key_and_part_id.append((key, matching_part_id))
-    return key_and_part_id
-
-
-def get_dict_of_part_ids(
+def get_matching_part_ids(
     brep_part_properties: dict,
     shape_properties: dict,
     volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
     bounding_box_atol: float = 1e-6,
 ):
-    """finds the brep id that matches the shape ids and returns a linking"""
-    key_and_part_id = {}
+    """finds the brep id that matches the shape ids and returns a list of tuples
+    where the first tuple is the shape part id and the second tuple is the brep
+    id"""
+
+    brep_and_shape_part_id = []
 
     for key, value in shape_properties:
 
         if isinstance(value, dict):
             # check if value is a list of dictionaries or a dictionary
-            matching_part_id = get_part_id(
+            matching_part_id = get_matching_part_id(
                 brep_part_properties=brep_part_properties,
                 volume_atol=volume_atol,
                 center_atol=center_atol,
@@ -212,9 +193,9 @@ def get_dict_of_part_ids(
             if len(matching_part_id) > 1:
                 raise ValueError(f"multiple matching volumes were found for {key}")
             # todo check that key is not already in use
-            key_and_part_id[matching_part_id[0]] = key
+            brep_and_shape_part_id.append((key, matching_part_id[0]))
 
         else:
             msg = "shape_properties must be a dictionary of dictionaries"
             raise ValueError(msg)
-    return key_and_part_id
+    return brep_and_shape_part_id
