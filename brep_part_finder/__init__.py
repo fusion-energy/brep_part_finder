@@ -15,9 +15,10 @@ __all__ = ["__version__"]
 
 
 from .core import (
-    get_brep_part_properties,
-    get_brep_part_properties_from_shape,
-    get_part_id,
-    get_part_ids,
-    get_dict_of_part_ids,
+    get_part_properties_from_shapes,
+    get_part_properties_from_shape,
+    get_part_properties_from_file,
+    get_matching_part_id,
+    get_matching_part_ids,
+    convert_shape_to_iterable_of_shapes,
 )
