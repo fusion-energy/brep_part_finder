@@ -131,4 +131,7 @@ dmypy.json
 # local brep files required for tests
 *.brep
 
+*.vtk
+*.h5m
+
 _version.py
