@@ -59,7 +59,13 @@ def get_part_properties_from_shapes(shapes: Iterable) -> dict:
     if not isinstance(shapes, Iterable):
         iterable_of_shapes = convert_shape_to_iterable_of_shapes(shapes)
     else:
-        iterable_of_shapes = shapes
+        # if a list of workplanes or other shapes is passed (e.g paramak) then
+        # we iterate through the list and convert to solids that have the
+        # expected properties (e.g. .Center.x)
+        iterable_of_shapes = []
+        for shape in shapes:
+            more_shapes = convert_shape_to_iterable_of_shapes(shape)
+            iterable_of_shapes = iterable_of_shapes + more_shapes
 
     all_part_details = {}
     for counter, part in enumerate(iterable_of_shapes, 1):
