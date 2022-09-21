@@ -5,6 +5,9 @@
 [![Upload Python Package](https://github.com/fusion-energy/brep_part_finder/actions/workflows/python-publish.yml/badge.svg)](https://github.com/fusion-energy/brep_part_finder/actions/workflows/python-publish.yml)
 [![anaconda-publish](https://github.com/fusion-energy/brep_part_finder/actions/workflows/anaconda-publish.yml/badge.svg)](https://github.com/fusion-energy/brep_part_finder/actions/workflows/anaconda-publish.yml)
 
+[![Anaconda-Server Badge](https://anaconda.org/fusion-energy/brep_part_finder/badges/version.svg)](https://anaconda.org/fusion-energy/brep_part_finder)
+[![PyPI](https://img.shields.io/pypi/v/brep_part_finder?color=brightgreen&label=pypi&logo=grebrightgreenen&logoColor=green)](https://pypi.org/project/brep_part_finder/)
+
 Brep-part-finder is able to search within a Brep file for parts that match user
 specified properties such as volume, center of mass and bounding box. The
 matching ID number of the part will be returned if found.
