@@ -195,9 +195,9 @@ def get_matching_part_id(
         print("  bounding_box_atol", bounding_box_atol)
         print("\nbrep criteria are:")
         for key, value in brep_part_properties.items():
-            print(f'    {key}')
+            print(f"    {key}")
             for key2, value2 in value.items():
-                print(f'        {key2}, {value2}')
+                print(f"        {key2}, {value2}")
 
     lists_of_matching_parts = list(
         set.intersection(*map(set, lists_of_matching_parts_separate))
@@ -222,9 +222,9 @@ def get_matching_part_id(
         print("  bounding_box_atol", bounding_box_atol)
         print("\nbrep criteria are:")
         for key, value in brep_part_properties.items():
-            print(f'    {key}')
+            print(f"    {key}")
             for key2, value2 in value.items():
-                print(f'        {key2}, {value2}')
+                print(f"        {key2}, {value2}")
         raise ValueError("No matching part found")
 
     return lists_of_matching_parts
