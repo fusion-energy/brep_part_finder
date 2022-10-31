@@ -117,9 +117,9 @@ def get_matching_part_id(
         center: a tuple of x,y,z coordinates
         bounding_box: a tuple of two coordinates where the coordinates are the
             lower left and upper right corners of the bounding box.
-        volume_atol: absolute tolerance acceptable on the volume comparision
-        center_atol: absolute tolerance acceptable on the center comparision
-        bounding_box_atol: absolute tolerance acceptable on the bounding box comparision
+        volume_atol: absolute tolerance acceptable on the volume comparison
+        center_atol: absolute tolerance acceptable on the center comparison
+        bounding_box_atol: absolute tolerance acceptable on the bounding box comparison
     """
 
     part_ids_matching = {}
@@ -198,6 +198,9 @@ def get_matching_part_id(
             print(f"    {key}")
             for key2, value2 in value.items():
                 print(f"        {key2}, {value2}")
+
+    if lists_of_matching_parts_separate == []:
+        raise ValueError("No matching part found")
 
     lists_of_matching_parts = list(
         set.intersection(*map(set, lists_of_matching_parts_separate))
