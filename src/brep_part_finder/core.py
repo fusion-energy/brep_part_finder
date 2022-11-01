@@ -117,9 +117,9 @@ def get_matching_part_id(
         center: a tuple of x,y,z coordinates
         bounding_box: a tuple of two coordinates where the coordinates are the
             lower left and upper right corners of the bounding box.
-        volume_atol: absolute tolerance acceptable on the volume comparision
-        center_atol: absolute tolerance acceptable on the center comparision
-        bounding_box_atol: absolute tolerance acceptable on the bounding box comparision
+        volume_atol: absolute tolerance acceptable on the volume comparison
+        center_atol: absolute tolerance acceptable on the center comparison
+        bounding_box_atol: absolute tolerance acceptable on the bounding box comparison
     """
 
     part_ids_matching = {}
@@ -193,6 +193,13 @@ def get_matching_part_id(
         print("  volume_atol", volume_atol)
         print("  center_atol", center_atol)
         print("  bounding_box_atol", bounding_box_atol)
+        print("\nbrep criteria are:")
+        for key, value in brep_part_properties.items():
+            print(f"    {key}")
+            for key2, value2 in value.items():
+                print(f"        {key2}, {value2}")
+
+    if lists_of_matching_parts_separate == []:
         raise ValueError("No matching part found")
 
     lists_of_matching_parts = list(
@@ -201,6 +208,27 @@ def get_matching_part_id(
 
     if len(lists_of_matching_parts) == 0:
         warnings.warn("No single part found that matches all criteria")
+        print("search criteria are:")
+        print(" volume", volume)
+        print(" center_x", center_x)
+        print(" center_y", center_y)
+        print(" center_z", center_z)
+        print(" bounding_box_xmin", bounding_box_xmin)
+        print(" bounding_box_ymin", bounding_box_ymin)
+        print(" bounding_box_zmin", bounding_box_zmin)
+        print(" bounding_box_xmax", bounding_box_xmax)
+        print(" bounding_box_ymax", bounding_box_ymax)
+        print(" bounding_box_zmax", bounding_box_zmax)
+        print(" with tolerances")
+        print("  volume_atol", volume_atol)
+        print("  center_atol", center_atol)
+        print("  bounding_box_atol", bounding_box_atol)
+        print("\nbrep criteria are:")
+        for key, value in brep_part_properties.items():
+            print(f"    {key}")
+            for key2, value2 in value.items():
+                print(f"        {key2}, {value2}")
+        raise ValueError("No matching part found")
 
     return lists_of_matching_parts
 
