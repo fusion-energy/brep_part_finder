@@ -165,9 +165,11 @@ def get_matching_part_id(
         bounding_box_atol,
     ]
 
-    print(f'checking against parts')
-    for i, (property, names, tolerance) in enumerate(zip(properties, properties_names, tolerances)):
-        print(f'    checking against part {i}')
+    print(f"checking against parts")
+    for i, (property, names, tolerance) in enumerate(
+        zip(properties, properties_names, tolerances)
+    ):
+        print(f"    checking against part {i}")
         if property is not None:
             part_ids_matching_property = []
             for key, value in brep_part_properties.items():
@@ -269,7 +271,7 @@ def get_matching_part_ids(
                 raise ValueError(f"multiple matching volumes were found for {shape_id}")
             # todo check that key is not already in use
             if len(matching_part_id) == 1:
-                print('part found')
+                print("part found")
             brep_and_shape_part_id.append((matching_part_id[0], shape_id))
 
         else:
