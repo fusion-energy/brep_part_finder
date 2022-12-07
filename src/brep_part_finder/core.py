@@ -162,10 +162,12 @@ def get_matching_part_id(
         bounding_box_atol,
     ]
     if verbose:
-        print(f'checking new shape against {len(brep_part_properties)} parts')
-    for i, (property, names, tolerance) in enumerate(zip(properties, properties_names, tolerances)):
+        print(f"checking new shape against {len(brep_part_properties)} parts")
+    for i, (property, names, tolerance) in enumerate(
+        zip(properties, properties_names, tolerances)
+    ):
         if verbose:
-            print(f'    checking shape against brep part {i+1}')
+            print(f"    checking shape against brep part {i+1}")
         if property is not None:
             part_ids_matching_property = []
             for key, value in brep_part_properties.items():
@@ -264,12 +266,14 @@ def get_matching_part_ids(
                 **value,
             )
             # if len(matching_part_id) == 0:
-                # nothing found, recheck
+            # nothing found, recheck
             if len(matching_part_id) > 1:
                 raise ValueError(f"multiple matching volumes were found for {shape_id}")
             if len(matching_part_id) == 1:
                 if verbose:
-                    print(f'    single matching pair, brep id = {matching_part_id[0]} shape id = {shape_id}')
+                    print(
+                        f"    single matching pair, brep id = {matching_part_id[0]} shape id = {shape_id}"
+                    )
                 brep_and_shape_part_id.append((matching_part_id[0], shape_id))
                 # print()
                 brep_part_properties.pop(matching_part_id[0])
@@ -283,7 +287,9 @@ def get_matching_part_ids(
             raise ValueError(msg)
 
     if verbose:
-        print(f'remaining brep ids that were not matched = {brep_part_properties.keys()}')
+        print(
+            f"remaining brep ids that were not matched = {brep_part_properties.keys()}"
+        )
 
     if len(brep_part_properties.keys()) == 1:
         if len(remaining_shape_ids) == 1:
@@ -310,13 +316,15 @@ def get_matching_part_ids(
             )
 
             if verbose:
-                print('matching_part_id', matching_part_id)
+                print("matching_part_id", matching_part_id)
 
             remaining_brep_id = list(brep_part_properties.keys())[0]
             remaining_shape_id = remaining_shape_ids[0]
 
             if verbose:
-                print(f'assigning brep id of {remaining_brep_id} to shape id of {remaining_shape_id} based on volume and center of mass check (bb check skipped)')
+                print(
+                    f"assigning brep id of {remaining_brep_id} to shape id of {remaining_shape_id} based on volume and center of mass check (bb check skipped)"
+                )
             brep_and_shape_part_id.append((remaining_brep_id, remaining_shape_id))
 
     brep_and_shape_part_id = sorted(brep_and_shape_part_id, key=lambda x: x[0])
