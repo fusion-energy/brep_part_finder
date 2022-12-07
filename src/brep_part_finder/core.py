@@ -18,6 +18,7 @@ def get_part_properties_from_shape(shape: Shape) -> dict:
     """
 
     part_details = {}
+    part_details["faces"] = len(shape.Faces())
     part_details["center_x"] = shape.Center().x
     part_details["center_y"] = shape.Center().y
     part_details["center_z"] = shape.Center().z
@@ -91,6 +92,7 @@ def get_part_properties_from_file(filename: Union[str, PathLike]):
 
 def get_matching_part_id(
     brep_part_properties: dict,
+    faces: int = None,
     center_x: float = None,
     center_y: float = None,
     center_z: float = None,
@@ -125,6 +127,7 @@ def get_matching_part_id(
     part_ids_matching = {}
 
     properties = [
+        faces,
         center_x,
         center_y,
         center_z,
@@ -137,6 +140,7 @@ def get_matching_part_id(
         bounding_box_zmax,
     ]
     properties_names = [
+        "faces",
         "center_x",
         "center_y",
         "center_z",
@@ -161,7 +165,9 @@ def get_matching_part_id(
         bounding_box_atol,
     ]
 
-    for property, names, tolerance in zip(properties, properties_names, tolerances):
+    print(f'checking against parts')
+    for i, (property, names, tolerance) in enumerate(zip(properties, properties_names, tolerances)):
+        print(f'    checking against part {i}')
         if property is not None:
             part_ids_matching_property = []
             for key, value in brep_part_properties.items():
@@ -180,6 +186,7 @@ def get_matching_part_id(
         warnings.warn("No single part found that matches all criteria")
         print("search criteria are:")
         print(" volume", volume)
+        print(" faces", faces)
         print(" center_x", center_x)
         print(" center_y", center_y)
         print(" center_z", center_z)
@@ -210,6 +217,7 @@ def get_matching_part_id(
         warnings.warn("No single part found that matches all criteria")
         print("search criteria are:")
         print(" volume", volume)
+        print(" faces", faces)
         print(" center_x", center_x)
         print(" center_y", center_y)
         print(" center_z", center_z)
@@ -260,6 +268,8 @@ def get_matching_part_ids(
             if len(matching_part_id) > 1:
                 raise ValueError(f"multiple matching volumes were found for {shape_id}")
             # todo check that key is not already in use
+            if len(matching_part_id) == 1:
+                print('part found')
             brep_and_shape_part_id.append((matching_part_id[0], shape_id))
 
         else:
