@@ -104,6 +104,7 @@ def get_matching_part_id(
     volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
     bounding_box_atol: float = 1e-6,
+    verbose=True,
 ):
     """Finds the key within a dictionary of parts that matches the user
     specified arguments for volume, center, bounding_box within the provided
@@ -160,8 +161,11 @@ def get_matching_part_id(
         bounding_box_atol,
         bounding_box_atol,
     ]
-
-    for property, names, tolerance in zip(properties, properties_names, tolerances):
+    if verbose:
+        print(f'checking new shape against {len(brep_part_properties)} parts')
+    for i, (property, names, tolerance) in enumerate(zip(properties, properties_names, tolerances)):
+        if verbose:
+            print(f'    checking shape against brep part {i+1}')
         if property is not None:
             part_ids_matching_property = []
             for key, value in brep_part_properties.items():
@@ -176,28 +180,29 @@ def get_matching_part_id(
 
     lists_of_matching_parts_separate = list(part_ids_matching.values())
 
-    if lists_of_matching_parts_separate == []:
-        warnings.warn("No single part found that matches all criteria")
-        print("search criteria are:")
-        print(" volume", volume)
-        print(" center_x", center_x)
-        print(" center_y", center_y)
-        print(" center_z", center_z)
-        print(" bounding_box_xmin", bounding_box_xmin)
-        print(" bounding_box_ymin", bounding_box_ymin)
-        print(" bounding_box_zmin", bounding_box_zmin)
-        print(" bounding_box_xmax", bounding_box_xmax)
-        print(" bounding_box_ymax", bounding_box_ymax)
-        print(" bounding_box_zmax", bounding_box_zmax)
-        print(" with tolerances")
-        print("  volume_atol", volume_atol)
-        print("  center_atol", center_atol)
-        print("  bounding_box_atol", bounding_box_atol)
-        print("\nbrep criteria are:")
-        for key, value in brep_part_properties.items():
-            print(f"    {key}")
-            for key2, value2 in value.items():
-                print(f"        {key2}, {value2}")
+    if verbose:
+        if lists_of_matching_parts_separate == []:
+            warnings.warn("No single part found that matches all criteria")
+            print("search criteria are:")
+            print(" volume", volume)
+            print(" center_x", center_x)
+            print(" center_y", center_y)
+            print(" center_z", center_z)
+            print(" bounding_box_xmin", bounding_box_xmin)
+            print(" bounding_box_ymin", bounding_box_ymin)
+            print(" bounding_box_zmin", bounding_box_zmin)
+            print(" bounding_box_xmax", bounding_box_xmax)
+            print(" bounding_box_ymax", bounding_box_ymax)
+            print(" bounding_box_zmax", bounding_box_zmax)
+            print(" with tolerances")
+            print("  volume_atol", volume_atol)
+            print("  center_atol", center_atol)
+            print("  bounding_box_atol", bounding_box_atol)
+            print("\nbrep criteria are:")
+            for key, value in brep_part_properties.items():
+                print(f"    {key}")
+                for key2, value2 in value.items():
+                    print(f"        {key2}, {value2}")
 
     if lists_of_matching_parts_separate == []:
         raise ValueError("No matching part found")
@@ -206,29 +211,29 @@ def get_matching_part_id(
         set.intersection(*map(set, lists_of_matching_parts_separate))
     )
 
-    if len(lists_of_matching_parts) == 0:
-        warnings.warn("No single part found that matches all criteria")
-        print("search criteria are:")
-        print(" volume", volume)
-        print(" center_x", center_x)
-        print(" center_y", center_y)
-        print(" center_z", center_z)
-        print(" bounding_box_xmin", bounding_box_xmin)
-        print(" bounding_box_ymin", bounding_box_ymin)
-        print(" bounding_box_zmin", bounding_box_zmin)
-        print(" bounding_box_xmax", bounding_box_xmax)
-        print(" bounding_box_ymax", bounding_box_ymax)
-        print(" bounding_box_zmax", bounding_box_zmax)
-        print(" with tolerances")
-        print("  volume_atol", volume_atol)
-        print("  center_atol", center_atol)
-        print("  bounding_box_atol", bounding_box_atol)
-        print("\nbrep criteria are:")
-        for key, value in brep_part_properties.items():
-            print(f"    {key}")
-            for key2, value2 in value.items():
-                print(f"        {key2}, {value2}")
-        raise ValueError("No matching part found")
+    if verbose:
+        if len(lists_of_matching_parts) == 0:
+            warnings.warn("No single part found that matches all criteria")
+            print("search criteria are:")
+            print(" volume", volume)
+            print(" center_x", center_x)
+            print(" center_y", center_y)
+            print(" center_z", center_z)
+            print(" bounding_box_xmin", bounding_box_xmin)
+            print(" bounding_box_ymin", bounding_box_ymin)
+            print(" bounding_box_zmin", bounding_box_zmin)
+            print(" bounding_box_xmax", bounding_box_xmax)
+            print(" bounding_box_ymax", bounding_box_ymax)
+            print(" bounding_box_zmax", bounding_box_zmax)
+            print(" with tolerances")
+            print("  volume_atol", volume_atol)
+            print("  center_atol", center_atol)
+            print("  bounding_box_atol", bounding_box_atol)
+            print("\nbrep criteria are:")
+            for key, value in brep_part_properties.items():
+                print(f"    {key}")
+                for key2, value2 in value.items():
+                    print(f"        {key2}, {value2}")
 
     return lists_of_matching_parts
 
@@ -239,13 +244,14 @@ def get_matching_part_ids(
     volume_atol: float = 1e-6,
     center_atol: float = 1e-6,
     bounding_box_atol: float = 1e-6,
+    verbose=True,
 ):
     """finds the brep id that matches the shape ids and returns a list of tuples
     where the first tuple is the shape part id and the second tuple is the brep
     id"""
 
     brep_and_shape_part_id = []
-
+    remaining_shape_ids = []
     for shape_id, value in shape_properties.items():
 
         if isinstance(value, dict):
@@ -257,14 +263,61 @@ def get_matching_part_ids(
                 bounding_box_atol=bounding_box_atol,
                 **value,
             )
+            # if len(matching_part_id) == 0:
+                # nothing found, recheck
             if len(matching_part_id) > 1:
                 raise ValueError(f"multiple matching volumes were found for {shape_id}")
+            if len(matching_part_id) == 1:
+                if verbose:
+                    print(f'    single matching pair, brep id = {matching_part_id[0]} shape id = {shape_id}')
+                brep_and_shape_part_id.append((matching_part_id[0], shape_id))
+                # print()
+                brep_part_properties.pop(matching_part_id[0])
             # todo check that key is not already in use
-            brep_and_shape_part_id.append((matching_part_id[0], shape_id))
+
+            else:
+                remaining_shape_ids.append(shape_id)
 
         else:
             msg = "shape_properties must be a dictionary of dictionaries"
             raise ValueError(msg)
+
+    if verbose:
+        print(f'remaining brep ids that were not matched = {brep_part_properties.keys()}')
+
+    if len(brep_part_properties.keys()) == 1:
+        if len(remaining_shape_ids) == 1:
+
+            value = shape_properties[remaining_shape_ids[0]]
+
+            # removing bounding box check as a last resort.
+            # The bounding box for cad is not as robust as the other checks
+            # Therefore in the case where just a single volume remains we
+            # check the volume and the center of mass but skip the bb check
+            value.pop("bounding_box_xmin")
+            value.pop("bounding_box_ymin")
+            value.pop("bounding_box_zmin")
+            value.pop("bounding_box_xmax")
+            value.pop("bounding_box_ymax")
+            value.pop("bounding_box_zmax")
+
+            matching_part_id = get_matching_part_id(
+                brep_part_properties=brep_part_properties,
+                volume_atol=volume_atol,
+                center_atol=center_atol,
+                bounding_box_atol=None,
+                **value,
+            )
+
+            if verbose:
+                print('matching_part_id', matching_part_id)
+
+            remaining_brep_id = list(brep_part_properties.keys())[0]
+            remaining_shape_id = remaining_shape_ids[0]
+
+            if verbose:
+                print(f'assigning brep id of {remaining_brep_id} to shape id of {remaining_shape_id} based on volume and center of mass check (bb check skipped)')
+            brep_and_shape_part_id.append((remaining_brep_id, remaining_shape_id))
 
     brep_and_shape_part_id = sorted(brep_and_shape_part_id, key=lambda x: x[0])
 
