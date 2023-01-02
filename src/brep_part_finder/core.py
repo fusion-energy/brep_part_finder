@@ -268,7 +268,9 @@ def get_matching_part_ids(
             # if len(matching_part_id) == 0:
             # nothing found, recheck
             if len(matching_part_id) > 1:
-                msg(f"multiple matching volumes {matching_part_id} were found for {shape_id}")
+                msg(
+                    f"multiple matching volumes {matching_part_id} were found for {shape_id}"
+                )
                 raise ValueError(msg)
             if len(matching_part_id) == 1:
                 if verbose:
