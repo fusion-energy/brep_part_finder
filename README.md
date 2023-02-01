@@ -47,7 +47,7 @@ To view the properties of the parts in the Brep file the first stage is to impor
 ```
 import brep_part_finder as bpf
 
-my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+my_brep_part_properties = bpf.get_part_properties_from_file('my_brep_file.brep')
 
 print(my_brep_part_properties)
 >>>{
