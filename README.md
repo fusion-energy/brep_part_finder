@@ -42,9 +42,9 @@ pip install brep_part_finder
 
 # Usage
 
-To view the properties of the parts in the Brep file the first stage is to import the package and make use of the ```get_brep_part_properties``` function.
+To view the properties of the parts in the Brep file the first stage is to import the package and make use of the ```get_part_properties_from_file``` function.
 
-```
+```python
 import brep_part_finder as bpf
 
 my_brep_part_properties = bpf.get_part_properties_from_file('my_brep_file.brep')
@@ -78,7 +78,7 @@ A minimal example that finds the part id numbers with matching volumes
 ```python
 import brep_part_finder as bpf
 
-my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+my_brep_part_properties = bpf.get_part_properties_from_file('my_brep_file.brep')
 part_id = bpf.find_part_id(
     brep_part_properties=my_brep_part_properties,
     volume=10,
@@ -95,7 +95,7 @@ The follow example also specifies the center of mass which helps narrow down the
 ```python
 import brep_part_finder as bpf
 
-my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+my_brep_part_properties = bpf.get_part_properties_from_file('my_brep_file.brep')
 part_id = bpf.find_part_id(
     brep_part_properties=my_brep_part_properties,
     volume=10,
@@ -110,7 +110,7 @@ In the this example the bounding box of the part has also been specified and the
 ```python
 import brep_part_finder as bpf
 
-my_brep_part_properties = bpf.get_brep_part_properties('my_brep_file.brep')
+my_brep_part_properties = bpf.get_part_properties_from_file('my_brep_file.brep')
 part_id = bpf.find_part_id(
     brep_part_properties=my_brep_part_properties,
     volume=10,
